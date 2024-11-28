@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="28320fbe3c7f48c9a8a0670eeab2abbe" Name="Diagram1">
+        <EntityTypeShape EntityType="BangbooNETModel.Address" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BangbooNETModel.Bangboo" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BangbooNETModel.BangbooSale" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BangbooNETModel.BangbooSupplier" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BangbooNETModel.BangbooSupplyDetail" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BangbooNETModel.Customer" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BangbooNETModel.Employee" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BangbooNETModel.Inventory" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BangbooNETModel.SalesReceipt" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="BangbooNETModel.FK_AddressCustomers" ManuallyRouted="false" />
+        <AssociationConnector Association="BangbooNETModel.FK_AddressEmployees" ManuallyRouted="false" />
+        <AssociationConnector Association="BangbooNETModel.FK_AddressSuppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="BangbooNETModel.FK__BangbooSu__ID_Ba__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="BangbooNETModel.FK__Inventory__Bangb__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="BangbooNETModel.FK_BangbooSales_Bangboo" ManuallyRouted="false" />
+        <AssociationConnector Association="BangbooNETModel.FK_BangbooSales_SalesReceipt" ManuallyRouted="false" />
+        <AssociationConnector Association="BangbooNETModel.FK__BangbooSu__ID_Su__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="BangbooNETModel.FK__SalesRece__Custo__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="BangbooNETModel.FK__SalesRece__Emplo__52593CB8" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

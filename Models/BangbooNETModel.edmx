@@ -1,0 +1,706 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BangbooNETModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="ID_Address" />
+          </Key>
+          <Property Name="ID_Address" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street_Number" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="31" Nullable="false" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bangboos">
+          <Key>
+            <PropertyRef Name="ID_Bangboo" />
+          </Key>
+          <Property Name="ID_Bangboo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="63" Nullable="false" />
+          <Property Name="Element" Type="varchar" MaxLength="31" Nullable="false" />
+          <Property Name="Rank" Type="bit" Nullable="false" />
+          <Property Name="Model" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PictureURL" Type="varchar" MaxLength="255" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BangbooSales">
+          <Key>
+            <PropertyRef Name="ID_BangbooSales" />
+          </Key>
+          <Property Name="Bangboo_ID" Type="int" Nullable="false" />
+          <Property Name="SalesReceipt_ID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ID_BangbooSales" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BangbooSuppliers">
+          <Key>
+            <PropertyRef Name="ID_Supplier" />
+          </Key>
+          <Property Name="ID_Supplier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="127" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="127" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Address_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BangbooSupplyDetails">
+          <Key>
+            <PropertyRef Name="ID_Detail" />
+          </Key>
+          <Property Name="ID_Detail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Bangboo" Type="int" Nullable="false" />
+          <Property Name="ID_Supplier" Type="int" Nullable="false" />
+          <Property Name="SupplyAmount" Type="int" Nullable="false" />
+          <Property Name="SupplyDate" Type="date" />
+          <Property Name="UnitCost" Type="int" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="63" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="63" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="127" Nullable="false" />
+          <Property Name="Address_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="ID_Employee" />
+          </Key>
+          <Property Name="ID_Employee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="63" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="63" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="127" Nullable="false" />
+          <Property Name="HireDate" Type="date" />
+          <Property Name="Salary" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Address_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="ID_Inventory" />
+          </Key>
+          <Property Name="ID_Inventory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bangboo_ID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="LastRestockDate" Type="date" />
+        </EntityType>
+        <EntityType Name="SalesReceipts">
+          <Key>
+            <PropertyRef Name="ID_Sale" />
+          </Key>
+          <Property Name="ID_Sale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleDate" Type="datetime" />
+          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="Customer_ID" Type="int" Nullable="false" />
+          <Property Name="TotalAmount" Type="int" />
+        </EntityType>
+        <Association Name="FK__BangbooSu__ID_Ba__5DCAEF64">
+          <End Role="Bangboos" Type="Self.Bangboos" Multiplicity="1" />
+          <End Role="BangbooSupplyDetails" Type="Self.BangbooSupplyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bangboos">
+              <PropertyRef Name="ID_Bangboo" />
+            </Principal>
+            <Dependent Role="BangbooSupplyDetails">
+              <PropertyRef Name="ID_Bangboo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BangbooSu__ID_Su__5EBF139D">
+          <End Role="BangbooSuppliers" Type="Self.BangbooSuppliers" Multiplicity="1" />
+          <End Role="BangbooSupplyDetails" Type="Self.BangbooSupplyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BangbooSuppliers">
+              <PropertyRef Name="ID_Supplier" />
+            </Principal>
+            <Dependent Role="BangbooSupplyDetails">
+              <PropertyRef Name="ID_Supplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventory__Bangb__5AEE82B9">
+          <End Role="Bangboos" Type="Self.Bangboos" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bangboos">
+              <PropertyRef Name="ID_Bangboo" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="Bangboo_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SalesRece__Custo__534D60F1">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="SalesReceipts" Type="Self.SalesReceipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="SalesReceipts">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SalesRece__Emplo__52593CB8">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="SalesReceipts" Type="Self.SalesReceipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="SalesReceipts">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AddressCustomers">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AddressEmployees">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AddressSuppliers">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1" />
+          <End Role="BangbooSuppliers" Type="Self.BangbooSuppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="BangbooSuppliers">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BangbooSales_Bangboo">
+          <End Role="Bangboos" Type="Self.Bangboos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BangbooSales" Type="Self.BangbooSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bangboos">
+              <PropertyRef Name="ID_Bangboo" />
+            </Principal>
+            <Dependent Role="BangbooSales">
+              <PropertyRef Name="Bangboo_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BangbooSales_SalesReceipt">
+          <End Role="SalesReceipts" Type="Self.SalesReceipts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BangbooSales" Type="Self.BangbooSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesReceipts">
+              <PropertyRef Name="ID_Sale" />
+            </Principal>
+            <Dependent Role="BangbooSales">
+              <PropertyRef Name="SalesReceipt_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BangbooNETModelStoreContainer">
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bangboos" EntityType="Self.Bangboos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BangbooSales" EntityType="Self.BangbooSales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BangbooSuppliers" EntityType="Self.BangbooSuppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BangbooSupplyDetails" EntityType="Self.BangbooSupplyDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesReceipts" EntityType="Self.SalesReceipts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BangbooSu__ID_Ba__5DCAEF64" Association="Self.FK__BangbooSu__ID_Ba__5DCAEF64">
+            <End Role="Bangboos" EntitySet="Bangboos" />
+            <End Role="BangbooSupplyDetails" EntitySet="BangbooSupplyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BangbooSu__ID_Su__5EBF139D" Association="Self.FK__BangbooSu__ID_Su__5EBF139D">
+            <End Role="BangbooSuppliers" EntitySet="BangbooSuppliers" />
+            <End Role="BangbooSupplyDetails" EntitySet="BangbooSupplyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventory__Bangb__5AEE82B9" Association="Self.FK__Inventory__Bangb__5AEE82B9">
+            <End Role="Bangboos" EntitySet="Bangboos" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SalesRece__Custo__534D60F1" Association="Self.FK__SalesRece__Custo__534D60F1">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="SalesReceipts" EntitySet="SalesReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SalesRece__Emplo__52593CB8" Association="Self.FK__SalesRece__Emplo__52593CB8">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="SalesReceipts" EntitySet="SalesReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AddressCustomers" Association="Self.FK_AddressCustomers">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AddressEmployees" Association="Self.FK_AddressEmployees">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AddressSuppliers" Association="Self.FK_AddressSuppliers">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="BangbooSuppliers" EntitySet="BangbooSuppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BangbooSales_Bangboo" Association="Self.FK_BangbooSales_Bangboo">
+            <End Role="Bangboos" EntitySet="Bangboos" />
+            <End Role="BangbooSales" EntitySet="BangbooSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BangbooSales_SalesReceipt" Association="Self.FK_BangbooSales_SalesReceipt">
+            <End Role="SalesReceipts" EntitySet="SalesReceipts" />
+            <End Role="BangbooSales" EntitySet="BangbooSales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BangbooNETModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID_Address" />
+          </Key>
+          <Property Name="ID_Address" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street_Number" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="31" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_AddressCustomers" FromRole="Addresses" ToRole="Customers" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_AddressEmployees" FromRole="Addresses" ToRole="Employees" />
+          <NavigationProperty Name="BangbooSuppliers" Relationship="Self.FK_AddressSuppliers" FromRole="Addresses" ToRole="BangbooSuppliers" />
+        </EntityType>
+        <EntityType Name="Bangboo">
+          <Key>
+            <PropertyRef Name="ID_Bangboo" />
+          </Key>
+          <Property Name="ID_Bangboo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="63" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Element" Type="String" MaxLength="31" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rank" Type="Boolean" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PictureURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BangbooSupplyDetails" Relationship="Self.FK__BangbooSu__ID_Ba__5DCAEF64" FromRole="Bangboos" ToRole="BangbooSupplyDetails" />
+          <NavigationProperty Name="Inventories" Relationship="Self.FK__Inventory__Bangb__5AEE82B9" FromRole="Bangboos" ToRole="Inventory" />
+          <NavigationProperty Name="BangbooSales" Relationship="Self.FK_BangbooSales_Bangboo" FromRole="Bangboos" ToRole="BangbooSales" />
+        </EntityType>
+        <EntityType Name="BangbooSale">
+          <Key>
+            <PropertyRef Name="ID_BangbooSales" />
+          </Key>
+          <Property Name="Bangboo_ID" Type="Int32" Nullable="false" />
+          <Property Name="SalesReceipt_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ID_BangbooSales" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Bangboo" Relationship="Self.FK_BangbooSales_Bangboo" FromRole="BangbooSales" ToRole="Bangboos" />
+          <NavigationProperty Name="SalesReceipt" Relationship="Self.FK_BangbooSales_SalesReceipt" FromRole="BangbooSales" ToRole="SalesReceipts" />
+        </EntityType>
+        <EntityType Name="BangbooSupplier">
+          <Key>
+            <PropertyRef Name="ID_Supplier" />
+          </Key>
+          <Property Name="ID_Supplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="127" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="127" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Address_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_AddressSuppliers" FromRole="BangbooSuppliers" ToRole="Addresses" />
+          <NavigationProperty Name="BangbooSupplyDetails" Relationship="Self.FK__BangbooSu__ID_Su__5EBF139D" FromRole="BangbooSuppliers" ToRole="BangbooSupplyDetails" />
+        </EntityType>
+        <EntityType Name="BangbooSupplyDetail">
+          <Key>
+            <PropertyRef Name="ID_Detail" />
+          </Key>
+          <Property Name="ID_Detail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Bangboo" Type="Int32" Nullable="false" />
+          <Property Name="ID_Supplier" Type="Int32" Nullable="false" />
+          <Property Name="SupplyAmount" Type="Int32" Nullable="false" />
+          <Property Name="SupplyDate" Type="DateTime" Precision="0" />
+          <Property Name="UnitCost" Type="Int32" />
+          <NavigationProperty Name="Bangboo" Relationship="Self.FK__BangbooSu__ID_Ba__5DCAEF64" FromRole="BangbooSupplyDetails" ToRole="Bangboos" />
+          <NavigationProperty Name="BangbooSupplier" Relationship="Self.FK__BangbooSu__ID_Su__5EBF139D" FromRole="BangbooSupplyDetails" ToRole="BangbooSuppliers" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="63" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="63" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="127" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_AddressCustomers" FromRole="Customers" ToRole="Addresses" />
+          <NavigationProperty Name="SalesReceipts" Relationship="Self.FK__SalesRece__Custo__534D60F1" FromRole="Customers" ToRole="SalesReceipts" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID_Employee" />
+          </Key>
+          <Property Name="ID_Employee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="63" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="63" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="127" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HireDate" Type="DateTime" Precision="0" />
+          <Property Name="Salary" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Address_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_AddressEmployees" FromRole="Employees" ToRole="Addresses" />
+          <NavigationProperty Name="SalesReceipts" Relationship="Self.FK__SalesRece__Emplo__52593CB8" FromRole="Employees" ToRole="SalesReceipts" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="ID_Inventory" />
+          </Key>
+          <Property Name="ID_Inventory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bangboo_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="LastRestockDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Bangboo" Relationship="Self.FK__Inventory__Bangb__5AEE82B9" FromRole="Inventory" ToRole="Bangboos" />
+        </EntityType>
+        <EntityType Name="SalesReceipt">
+          <Key>
+            <PropertyRef Name="ID_Sale" />
+          </Key>
+          <Property Name="ID_Sale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleDate" Type="DateTime" Precision="3" />
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" />
+          <Property Name="TotalAmount" Type="Int32" />
+          <NavigationProperty Name="BangbooSales" Relationship="Self.FK_BangbooSales_SalesReceipt" FromRole="SalesReceipts" ToRole="BangbooSales" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__SalesRece__Custo__534D60F1" FromRole="SalesReceipts" ToRole="Customers" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__SalesRece__Emplo__52593CB8" FromRole="SalesReceipts" ToRole="Employees" />
+        </EntityType>
+        <Association Name="FK_AddressCustomers">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="1" />
+          <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AddressEmployees">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AddressSuppliers">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="1" />
+          <End Role="BangbooSuppliers" Type="Self.BangbooSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="BangbooSuppliers">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BangbooSu__ID_Ba__5DCAEF64">
+          <End Role="Bangboos" Type="Self.Bangboo" Multiplicity="1" />
+          <End Role="BangbooSupplyDetails" Type="Self.BangbooSupplyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bangboos">
+              <PropertyRef Name="ID_Bangboo" />
+            </Principal>
+            <Dependent Role="BangbooSupplyDetails">
+              <PropertyRef Name="ID_Bangboo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventory__Bangb__5AEE82B9">
+          <End Role="Bangboos" Type="Self.Bangboo" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bangboos">
+              <PropertyRef Name="ID_Bangboo" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="Bangboo_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BangbooSales_Bangboo">
+          <End Role="Bangboos" Type="Self.Bangboo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BangbooSales" Type="Self.BangbooSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bangboos">
+              <PropertyRef Name="ID_Bangboo" />
+            </Principal>
+            <Dependent Role="BangbooSales">
+              <PropertyRef Name="Bangboo_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BangbooSales_SalesReceipt">
+          <End Role="SalesReceipts" Type="Self.SalesReceipt" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BangbooSales" Type="Self.BangbooSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesReceipts">
+              <PropertyRef Name="ID_Sale" />
+            </Principal>
+            <Dependent Role="BangbooSales">
+              <PropertyRef Name="SalesReceipt_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BangbooSu__ID_Su__5EBF139D">
+          <End Role="BangbooSuppliers" Type="Self.BangbooSupplier" Multiplicity="1" />
+          <End Role="BangbooSupplyDetails" Type="Self.BangbooSupplyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BangbooSuppliers">
+              <PropertyRef Name="ID_Supplier" />
+            </Principal>
+            <Dependent Role="BangbooSupplyDetails">
+              <PropertyRef Name="ID_Supplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SalesRece__Custo__534D60F1">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+          <End Role="SalesReceipts" Type="Self.SalesReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="SalesReceipts">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SalesRece__Emplo__52593CB8">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="SalesReceipts" Type="Self.SalesReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="SalesReceipts">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BangbooNETEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Bangboos" EntityType="Self.Bangboo" />
+          <EntitySet Name="BangbooSales" EntityType="Self.BangbooSale" />
+          <EntitySet Name="BangbooSuppliers" EntityType="Self.BangbooSupplier" />
+          <EntitySet Name="BangbooSupplyDetails" EntityType="Self.BangbooSupplyDetail" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Inventories" EntityType="Self.Inventory" />
+          <EntitySet Name="SalesReceipts" EntityType="Self.SalesReceipt" />
+          <AssociationSet Name="FK_AddressCustomers" Association="Self.FK_AddressCustomers">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AddressEmployees" Association="Self.FK_AddressEmployees">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AddressSuppliers" Association="Self.FK_AddressSuppliers">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="BangbooSuppliers" EntitySet="BangbooSuppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BangbooSu__ID_Ba__5DCAEF64" Association="Self.FK__BangbooSu__ID_Ba__5DCAEF64">
+            <End Role="Bangboos" EntitySet="Bangboos" />
+            <End Role="BangbooSupplyDetails" EntitySet="BangbooSupplyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventory__Bangb__5AEE82B9" Association="Self.FK__Inventory__Bangb__5AEE82B9">
+            <End Role="Bangboos" EntitySet="Bangboos" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BangbooSales_Bangboo" Association="Self.FK_BangbooSales_Bangboo">
+            <End Role="Bangboos" EntitySet="Bangboos" />
+            <End Role="BangbooSales" EntitySet="BangbooSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BangbooSales_SalesReceipt" Association="Self.FK_BangbooSales_SalesReceipt">
+            <End Role="SalesReceipts" EntitySet="SalesReceipts" />
+            <End Role="BangbooSales" EntitySet="BangbooSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BangbooSu__ID_Su__5EBF139D" Association="Self.FK__BangbooSu__ID_Su__5EBF139D">
+            <End Role="BangbooSuppliers" EntitySet="BangbooSuppliers" />
+            <End Role="BangbooSupplyDetails" EntitySet="BangbooSupplyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SalesRece__Custo__534D60F1" Association="Self.FK__SalesRece__Custo__534D60F1">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="SalesReceipts" EntitySet="SalesReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SalesRece__Emplo__52593CB8" Association="Self.FK__SalesRece__Emplo__52593CB8">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="SalesReceipts" EntitySet="SalesReceipts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BangbooNETModelStoreContainer" CdmEntityContainer="BangbooNETEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="BangbooNETModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="ID_Address" ColumnName="ID_Address" />
+                <ScalarProperty Name="Street_Number" ColumnName="Street_Number" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bangboos">
+            <EntityTypeMapping TypeName="BangbooNETModel.Bangboo">
+              <MappingFragment StoreEntitySet="Bangboos">
+                <ScalarProperty Name="ID_Bangboo" ColumnName="ID_Bangboo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Element" ColumnName="Element" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BangbooSales">
+            <EntityTypeMapping TypeName="BangbooNETModel.BangbooSale">
+              <MappingFragment StoreEntitySet="BangbooSales">
+                <ScalarProperty Name="Bangboo_ID" ColumnName="Bangboo_ID" />
+                <ScalarProperty Name="SalesReceipt_ID" ColumnName="SalesReceipt_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ID_BangbooSales" ColumnName="ID_BangbooSales" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BangbooSuppliers">
+            <EntityTypeMapping TypeName="BangbooNETModel.BangbooSupplier">
+              <MappingFragment StoreEntitySet="BangbooSuppliers">
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BangbooSupplyDetails">
+            <EntityTypeMapping TypeName="BangbooNETModel.BangbooSupplyDetail">
+              <MappingFragment StoreEntitySet="BangbooSupplyDetails">
+                <ScalarProperty Name="ID_Detail" ColumnName="ID_Detail" />
+                <ScalarProperty Name="ID_Bangboo" ColumnName="ID_Bangboo" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="SupplyAmount" ColumnName="SupplyAmount" />
+                <ScalarProperty Name="SupplyDate" ColumnName="SupplyDate" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BangbooNETModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="BangbooNETModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="ID_Employee" ColumnName="ID_Employee" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="BangbooNETModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="ID_Inventory" ColumnName="ID_Inventory" />
+                <ScalarProperty Name="Bangboo_ID" ColumnName="Bangboo_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="LastRestockDate" ColumnName="LastRestockDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesReceipts">
+            <EntityTypeMapping TypeName="BangbooNETModel.SalesReceipt">
+              <MappingFragment StoreEntitySet="SalesReceipts">
+                <ScalarProperty Name="ID_Sale" ColumnName="ID_Sale" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
